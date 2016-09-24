@@ -70,6 +70,11 @@ public class HashTableArray {
             values[size++] = new Entry<K, V>(key, value);
         }
     }
+
+    public int size() {
+        return size;
+    }
+
     //ensure there is space left in the HTArray
     private void ensureCapacity() {
         if (size == values.length) {
@@ -78,6 +83,5 @@ public class HashTableArray {
             values = Arrays.copyOf(values, newSize);
         }
     }
-
 
 }
