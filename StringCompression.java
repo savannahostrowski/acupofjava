@@ -6,7 +6,6 @@ public class StringCompression {
 
     public static String compress(String str) {
         char[] chararr = str.toCharArray();
-        String[] compressedArr = new String[chararr.length];
 
         char prev = chararr[0];
         int counter = 1;
