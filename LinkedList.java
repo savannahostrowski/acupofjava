@@ -5,16 +5,19 @@ import java.util.HashSet;
 public class LinkedList {
     public static void main(String[] args) {
 
-        Node fifth = new Node(1, null);
-        Node fourth = new Node(7, fifth);
-        Node third = new Node(9, fourth);
-        Node second = new Node(7, third);
-        Node first = new Node(7, second);
+        Node third = new Node(2, null);
+        Node second = new Node(9, third);
+        Node first = new Node(5, second);
+
+        Node third1 = new Node(6, null);
+        Node second1 = new Node(1, third1);
+        Node first1 = new Node(7, second1);
 //        Node.printLinkedList(first);
 //        Node.removeDuplicates(first);
 //        Node.printLinkedList(first);
 //        Node.printNode(Node.findKth(first, 1));
         Node.printLinkedList(Node.partition(first, 3));
+        Node.printLinkedList(Node.reverseAdd(first, first1));
 
     }
 
@@ -138,6 +141,38 @@ public class LinkedList {
             appendList(storeSmaller, storeLarger);
             return storeSmaller;
         }
-    }
 
+         public static Node reverseAdd(Node L1, Node L2) {
+             int num1 = LLToNumber(L1);
+             System.out.println(num1);
+             int num2 = LLToNumber(L2);
+             System.out.println(num2);
+
+             int sum = num1 + num2;
+             Node finalLL = null;
+
+             while(sum > 0) {
+                 int digit = sum % 10;
+                 if (finalLL == null) {
+                     finalLL = new Node (digit, null);
+                 } else {
+                     finalLL.appendToTail(digit);
+                 }
+                 sum /= 10;
+             }
+             return finalLL;
+         }
+
+         public static int LLToNumber (Node n) {
+             int factor = 1;
+             int sum = 0;
+             while (n != null) {
+                 int temp = n.data * factor;
+                 sum += temp;
+                 factor *= 10;
+                 n = n.next;
+             }
+             return sum;
+         }
+    }
 }
