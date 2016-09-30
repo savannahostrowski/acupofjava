@@ -1,13 +1,16 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Stack;
 
 public class LinkedList {
     public static void main(String[] args) {
 
-        Node third = new Node(2, null);
-        Node second = new Node(9, third);
-        Node first = new Node(5, second);
+        Node fifth = new Node(1, null);
+        Node fourth = new Node(2, fifth);
+        Node third = new Node(3, fourth);
+        Node second = new Node(3, third);
+        Node first = new Node(1, second);
 
         Node third1 = new Node(6, null);
         Node second1 = new Node(1, third1);
@@ -16,8 +19,10 @@ public class LinkedList {
 //        Node.removeDuplicates(first);
 //        Node.printLinkedList(first);
 //        Node.printNode(Node.findKth(first, 1));
-        Node.printLinkedList(Node.partition(first, 3));
-        Node.printLinkedList(Node.reverseAdd(first, first1));
+//        Node.printLinkedList(Node.partition(first, 3));
+//        Node.printLinkedList(Node.reverseAdd(first, first1));
+        System.out.println(Node.isPalindrome(first));
+
 
     }
 
@@ -173,6 +178,26 @@ public class LinkedList {
                  n = n.next;
              }
              return sum;
+         }
+
+         public static boolean isPalindrome(Node n) {
+             Stack<Integer> stack = new Stack<>();
+             Node temp = n;
+             //creates stack
+             while (n != null) {
+                 stack.push(n.data);
+                 n = n.next;
+             }
+             System.out.println(Arrays.toString(stack.toArray()));
+
+             while (temp != null) {
+                 int elem = stack.pop();
+                 if (elem != temp.data) {
+                     return false;
+                 }
+                 temp = temp.next;
+             }
+             return true;
          }
     }
 }
