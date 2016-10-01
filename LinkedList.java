@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Stack;
 
 public class LinkedList {
     public static void main(String[] args) {
@@ -15,13 +14,31 @@ public class LinkedList {
         Node third1 = new Node(6, null);
         Node second1 = new Node(1, third1);
         Node first1 = new Node(7, second1);
-//        Node.printLinkedList(first);
-//        Node.removeDuplicates(first);
-//        Node.printLinkedList(first);
-//        Node.printNode(Node.findKth(first, 1));
-//        Node.printLinkedList(Node.partition(first, 3));
-//        Node.printLinkedList(Node.reverseAdd(first, first1));
-        System.out.println(Node.isPalindrome(first));
+
+
+        Stack stk1 = new Stack();
+        stk1.push(5);
+        stk1.push(3);
+        stk1.push(1);
+        StackOfStacks stackofstk = new StackOfStacks(stk1, null);
+
+        Stack stk2 = new Stack();
+        stk2.push(2);
+        stk2.push(4);
+        stk2.push(6);
+        stackofstk.pushStack(stk2);
+
+
+        System.out.println(stackofstk.toString());
+
+
+//        SetOfStacks stackeg = new SetOfStacks();
+//        stackeg.push(5);
+//        stackeg.push(3);
+//        stackeg.push(1);
+//        stackeg.push(2);
+//        stackeg.push(7);
+//        stackeg.push(10);
 
 
     }
@@ -180,24 +197,126 @@ public class LinkedList {
              return sum;
          }
 
-         public static boolean isPalindrome(Node n) {
-             Stack<Integer> stack = new Stack<>();
-             Node temp = n;
-             //creates stack
-             while (n != null) {
-                 stack.push(n.data);
-                 n = n.next;
-             }
-             System.out.println(Arrays.toString(stack.toArray()));
+//         public static boolean isPalindrome(Node n) {
+//             Stack<Integer> stack = new Stack<>();
+//             Node temp = n;
+//             //creates stack
+//             while (n != null) {
+//                 stack.push(n.data);
+//                 n = n.next;
+//             }
+//             System.out.println(Arrays.toString(stack.toArray()));
+//
+//             while (temp != null) {
+//                 int elem = stack.pop();
+//                 if (elem != temp.data) {
+//                     return false;
+//                 }
+//                 temp = temp.next;
+//             }
+//             return true;
+//         }
+    }
 
-             while (temp != null) {
-                 int elem = stack.pop();
-                 if (elem != temp.data) {
-                     return false;
-                 }
-                 temp = temp.next;
+    // ----- STACKS AND QUEUES -------
+
+    static class Stack {
+        Node top;
+        int pop() {
+            if (top != null) {
+                int item = top.data;
+                top = top.next;
+                return item;
+            }
+            return -1;
+        }
+
+        void push(int item) {
+            Node t = new Node(item, top);
+            top = t;
+        }
+
+        int peek() {
+            return top.data;
+        }
+    }
+
+    static class StackOfStacks {
+
+        public Stack next = null;
+        public Stack top;
+
+        public StackOfStacks(Stack stk) {
+            top = stk;
+        }
+
+        public StackOfStacks(Stack top, Stack nxt) {
+            this.top = top;
+            next = nxt;
+        }
+
+        Stack popStack() {
+            if (top != null) {
+                Stack stk = top;
+                top = next;
+                return top;
+            }
+            return null;
+        }
+
+
+        void pushStack(Stack stk) {
+            Stack temp = top;
+            top = stk;
+            next = temp;
+        }
+
+        Stack peek() {
+            return top;
+        }
+
+        @Override
+        public String toString() {
+            return "StackOfStacks{" +
+                    "next=" + next +
+                    ", top=" + top +
+                    '}';
+        }
+    }
+
+    static class SetOfStacks {
+        int maxSize;  //tells us what the max size of a stack should be
+        Stack currentStack = new Stack();
+        StackOfStacks listOfStacks = new StackOfStacks(currentStack, null);
+        int currentLength = 0;
+
+        public SetOfStacks(int maxSize) {
+            this.maxSize = maxSize;
+        }
+
+        void pushElem(int elem) {
+            if (currentLength < maxSize) {
+                currentStack.push(elem);
+                currentLength++;
+            } else {
+                Stack newstack = new Stack();
+                newstack.push(elem);
+                listOfStacks.pushStack(newstack);
+                currentStack = newstack;
+                currentLength = 1;
+            }
+        }
+         int popElem() {
+             if (currentLength == 0) {
+                 currentStack = listOfStacks.popStack();
+                 currentLength = maxSize;
              }
-             return true;
+             currentLength--;
+             return currentStack.pop();
          }
+
+        int peek() {
+            return currentStack.peek();
+        }
     }
 }
