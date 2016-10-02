@@ -16,20 +16,30 @@ public class LinkedList {
         Node first1 = new Node(7, second1);
 
 
-        Stack stk1 = new Stack();
+        Stack stk1 = new Stack ();
         stk1.push(5);
         stk1.push(3);
         stk1.push(1);
-        StackOfStacks stackofstk = new StackOfStacks(stk1, null);
 
-        Stack stk2 = new Stack();
-        stk2.push(2);
-        stk2.push(4);
-        stk2.push(6);
-        stackofstk.pushStack(stk2);
+        Stack newstk = AscendingStack.sort(stk1);
 
 
-        System.out.println(stackofstk.toString());
+
+        System.out.println(newstk.pop());
+        System.out.println(newstk.pop());
+        System.out.println(newstk.pop());
+////
+//
+//        Stack stk2 = new Stack();
+//        stk2.push(2);
+//        stk2.push(4);
+//        stk2.push(6);
+//        boolean val = stk2.isEmpty();
+//        System.out.println(val);
+
+
+
+        //System.out.println(stackofstk.toString());
 
 
 //        SetOfStacks stackeg = new SetOfStacks();
@@ -239,6 +249,10 @@ public class LinkedList {
         int peek() {
             return top.data;
         }
+
+        boolean isEmpty() {
+            return top == null;
+        }
     }
 
     static class StackOfStacks {
@@ -318,5 +332,21 @@ public class LinkedList {
         int peek() {
             return currentStack.peek();
         }
+    }
+
+   static class AscendingStack {
+        Stack stk = new Stack();
+
+       public static Stack sort (Stack stk) {
+           Stack temp = new Stack();
+           while (!stk.isEmpty()) {
+               int tmp = stk.pop();
+               while(!temp.isEmpty() && tmp < temp.peek()) {
+                   stk.push(temp.pop());
+               }
+               temp.push(tmp);
+           }
+           return temp;
+       }
     }
 }
