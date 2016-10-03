@@ -150,35 +150,43 @@ public class TreesAndGraphs {
         boolean isLeftBST = false;
         boolean isRightBST = false;
 
+        // is input smaller than min or larger than max
         if(input.node < min || input.node > max) {
             return false;
         }
 
         if (input.left != null) {
             if (input.left.node < input.node) {
+                //left is smaller than parent
                 System.out.println("Left:" + Integer.toString(input.left.node) + "Current: " + input.node);
+                //recurse and check that the left (which is now the new parent) is smaller than parent but larger than min
                 isLeftBST = isBST(input.left, min, input.node);
             } else {
+                //left is larger than parent
                 isLeftBST = false;
             }
         } else {
+            // end of the branch
             isLeftBST = true;
         }
 
-
         if (input.right != null) {
             if (input.right.node > input.node) {
+                //right is larger than parent
                 System.out.println("Right:" + Integer.toString(input.right.node) + "Current: " + input.node);
-                isRightBST = input.right.node > input.node && isBST(input.right, input.node + 1, max);
+                //recurse to check that right larger than parent but smaller than max;
+                isRightBST =isBST(input.right, input.node + 1, max);
             } else {
+                //right is smaller than parent
                 isRightBST = false;
             }
         } else {
+            //reached end of branch
             isRightBST = true;
         }
 
 
-        return isLeftBST && isRightBST ;
+        return isLeftBST && isRightBST;
     }
 }
 
