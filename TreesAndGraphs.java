@@ -5,15 +5,28 @@ import static sun.swing.MenuItemLayoutHelper.max;
 
 public class TreesAndGraphs {
     public static void main(String[] args) {
-        Tree tree1 = new Tree(3, new Tree(4), new Tree(5));
-        Tree tree2 = new Tree(2, new Tree(1), new Tree(10));
-        Tree newTree = new Tree(3, tree1, null);
-        int[] inputarr = {5, 10, 11, 15, 20, 25};
-        Tree output = CreateBST(inputarr);
-        int[] newarr = Tree.storeInOrder(output);
-        System.out.println(Arrays.toString(newarr));
+//        Tree tree1 = new Tree(3, new Tree(4), new Tree(5));
+//        Tree tree2 = new Tree(2, new Tree(1), new Tree(10));
+//        Tree newTree = new Tree(3, tree1, null);
+//        int[] inputarr = {5, 10, 11, 15, 20, 25};
+//        Tree output = CreateBST(inputarr);
+//        int[] newarr = Tree.storeInOrder(output);
+//        System.out.println(Arrays.toString(newarr));
 
 //        Tree output = Tree.CheckBalanced(newTree);
+
+        Tree tree9 = new Tree(6, null, null);
+        Tree tree8 = new Tree(3, null, null);
+        Tree tree7 = new Tree(5, tree8, tree9);
+        Tree tree6 = new Tree(13, null, null);
+        Tree tree5 = new Tree(11, null, null);
+        Tree tree4 = new Tree(25, null, null);
+        Tree tree3 = new Tree(7, tree7, null);
+        Tree tree2 = new Tree(12, tree5, tree6);
+        Tree tree1 = new Tree(8, tree3, tree4);
+        Tree newtree = new Tree (10, tree1, tree2);
+
+        System.out.println(isBST(newtree, Integer.MIN_VALUE, Integer.MAX_VALUE));
 
     }
 
@@ -131,6 +144,41 @@ public class TreesAndGraphs {
         }
 
         return BSTOutput;
+    }
+
+    public static boolean isBST(Tree input, int min, int max) {
+        boolean isLeftBST = false;
+        boolean isRightBST = false;
+
+        if(input.node < min || input.node > max) {
+            return false;
+        }
+
+        if (input.left != null) {
+            if (input.left.node < input.node) {
+                System.out.println("Left:" + Integer.toString(input.left.node) + "Current: " + input.node);
+                isLeftBST = isBST(input.left, min, input.node);
+            } else {
+                isLeftBST = false;
+            }
+        } else {
+            isLeftBST = true;
+        }
+
+
+        if (input.right != null) {
+            if (input.right.node > input.node) {
+                System.out.println("Right:" + Integer.toString(input.right.node) + "Current: " + input.node);
+                isRightBST = input.right.node > input.node && isBST(input.right, input.node + 1, max);
+            } else {
+                isRightBST = false;
+            }
+        } else {
+            isRightBST = true;
+        }
+
+
+        return isLeftBST && isRightBST ;
     }
 }
 
