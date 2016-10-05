@@ -8,11 +8,7 @@ public class BitManipulation {
         System.out.println("return: " + returnSmallestLargest(8));
 
     }
-
-    public static int log2(int value) {
-        return Integer.SIZE-Integer.numberOfLeadingZeros(value);
-    }
-
+    
     public static ArrayList<Boolean> convertToBinary(int num) {
         int temp = num;
         ArrayList<Boolean> bits  = new ArrayList<>();
