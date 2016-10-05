@@ -3,9 +3,9 @@ import java.util.ArrayList;
 public class BitManipulation {
     public static void main (String[] args) {
 
-        System.out.println("Binary string: " + convertToBinary(8));
+        System.out.println("Binary string: " + convertToBinary(2));
         System.out.println("Number of 1s in the string: " + countOnes(convertToBinary(8)));
-        System.out.println("return: " + returnSmallestLargest(8));
+        System.out.println("return: " + returnSmallestLargest(1));
 
     }
 
@@ -41,9 +41,8 @@ public class BitManipulation {
         ArrayList<Integer> smallestAndLargest = new ArrayList<>();
         String binary = convertToBinary(num);
         int numberOfOnes = countOnes(binary);
-        System.out.println(numberOfOnes);
 
-        for (int j = 0; j < num; j++) {
+        for (int j = num - 1; j > 0; j--) {
             String binaryJ = convertToBinary(j);
 
             int onesJ = countOnes(binaryJ);
@@ -53,7 +52,7 @@ public class BitManipulation {
             }
         }
 
-        for (int k = num; k < Integer.MAX_VALUE; k++) {
+        for (int k = num + 1; k < Integer.MAX_VALUE; k++) {
             String binaryK = convertToBinary(k);
             int onesK = countOnes(binaryK);
             if (onesK == numberOfOnes) {
@@ -61,7 +60,6 @@ public class BitManipulation {
                 break;
             }
         }
-        System.out.println("Output: " + smallestAndLargest.get(0) + " " + smallestAndLargest.get(1));
         return smallestAndLargest;
     }
 }
